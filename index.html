@@ -1,12 +1,50 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="lofi">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MealDb</title>
+    <!-- daisy ui -->
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@2.51.0/dist/full.css" rel="stylesheet" type="text/css" />
+    <!-- tailwind -->
+ <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              clifford: '#da373d',
+            }
+          }
+        }
+      }
+    </script>
 </head>
 <body>
-    
+ <header>
+    <div class="navbar bg-base-700 p-4" data-theme="dark">
+        <div class="flex-1">
+          <a class="btn btn-ghost normal-case text-xl">MealDb</a>
+        </div>
+        <div class="flex-none gap-2">
+          <div class="form-control">
+            <input id="search-input" type="text" placeholder="Search your food" class="input input-bordered outline-0" />
+          </div>
+          <div class="form-control">
+            <button id="search-btn" class="btn btn-active">Search</button>
+          </div>
+        </div>
+      </div>
+ </header>
+
+ <!-- main section starts from  -->
+ <main>
+    <div id="card" class="grid lg:grid-cols-4 md:grid-cols-3 gap-4 m-4 mt-4 w-auto"></div>
+ </main>
+
+ <!-- custom js -->
+ <script src="js/meal.js"></script>
+ 
 </body>
 </html>
