@@ -18,7 +18,7 @@ const meals = (meals) => {
   const card = document.getElementById("card");
   card.innerText = "";
   meals.forEach((food) => {
-    //console.log(food);
+    console.log(food);
     const div = document.createElement("div");
     div.classList.add("w-full");
     div.innerHTML = `
@@ -28,7 +28,7 @@ const meals = (meals) => {
                   <h2 class="card-title text-lg font-bold">${food.strMeal}</h2>
                   <p class="text-sm font-semibold">They have high levels of iron to help restore energy and improve red blood cells function.</p>
                   <div class="card-actions justify-between mt-4">
-                    <label onclick="modal()" for="my-modal" id="details" class="btn btn-info rounded">Details</label>
+                    <label onclick="modal(${food.idMeal})" for="my-modal" id="details" class="btn btn-info rounded">Details</label>
                     <button class="btn btn-outline btn-info rounded">Order Now</button>
                   </div>
                 </div>
@@ -38,34 +38,25 @@ const meals = (meals) => {
   });
 };
 
-const modal = () => {
-    const link = 'https://www.themealdb.com/api/json/v1/1/lookup.php?i=52772';
+const modal = idMeal => {
+    const link = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${idMeal}`;
     fetch(link)
     .then(res => res.json())
     .then(data => forModal(data.meals))
+    .catch(error => console.log(error))
 }
 
 const forModal = (foods) => {
-    console.log(foods);
-     // modal
-    const modal = document.getElementById('modal')
-    foods.forEach(details => {
-    //console.log(details);
-    const modalDiv = document.createElement("div");
-    modalDiv.innerHTML = `
-    <input type="checkbox" id="my-modal" class="modal-toggle" />
-    <div class="modal">
-    <div class="modal-box">
-    <h3 id="modal-heading" class="font-semibold text-lg text-center">${details.strMeal}</h3>
-    <img class="w-44 mt-4 mx-auto" src="${details.strMealThumb}" alt="No image found" />
-    <div class="modal-action">
-    <label for="my-modal" class="btn">Close</label>
-    </div>
-   </div>
-   </div>
- `;
-    modal.appendChild(modalDiv)
-   })
+    //console.log(foods);
+    const modalHeading = document.getElementById('modal-heading');
+    modalHeading.innerText = `${foods[0].strMeal}`;
+    const modalBody = document.getElementById('modal-body');
+    modalBody.innerText = `Region - ${foods[0].strArea ? foods[0].strArea : "No data found"}`
+    const modalImg = document.getElementById('modal-img');
+    modalImg.innerHTML = `
+    <img class="w-40 md:w-56 lg:w-72" src="${foods[0].strMealThumb}">
+    `
+
 }
 
 document.getElementById("search-btn").addEventListener("click", () => {
